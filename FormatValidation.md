@@ -53,7 +53,7 @@ enum Validate {
 }
 ```
 
-`使用email為例`
+`使用email為例`  
 `return "True" 為符合`
 ```swift
 if(Validate.email("your email input String").isRight){

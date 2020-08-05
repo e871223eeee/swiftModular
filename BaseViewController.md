@@ -110,6 +110,6 @@ class ViewController_1: BaseViewController {
 import UIKit
 
 class ViewController_2: UIViewController {
-    var value:String = ""
+    var value:String = "" 
 }
 ```

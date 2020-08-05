@@ -8,8 +8,85 @@ import Foundation
 import  UIKit
 
 class BaseViewController: UIViewController {
-    func push(_ vc: UIViewController){
-        navigationController?.pushViewController(vc, animated: true)
+    
+    //push
+    func push(_ nextVC: UIViewController){
+        navigationController?.pushViewController(nextVC, animated: false)
+    }
+    
+    //push 跳頁時 刪掉舊的畫面
+    func push_deleteCurrentVC(_ CurrentVC:UIViewController, _ nextVC: UIViewController){
+        
+        navigationController?.pushViewController(nextVC, animated: false)
+        
+
+        //刪除上一個畫面
+        let arrayVC = NSMutableArray.init(array: (self.navigationController?.viewControllers)!)
+        for vc in arrayVC {
+            if (vc as! UIViewController) == CurrentVC  {
+                arrayVC.remove(vc)
+                break;
+            }
+        }
+        
+        self.navigationController?.viewControllers = arrayVC as! [UIViewController]
+    }
+    
+    //舊的畫面被叫出時無法傳值 待解決
+    //pop
+    func pop(_ nextVC: UIViewController){
+        //目的ViewController是否已經生成過了
+        var isRegisterVC = false
+        let arrayVC = NSMutableArray.init(array: (self.navigationController?.viewControllers)!)
+
+        //如果生成過了就叫出來
+        for vc in arrayVC{
+           if (vc as! UIViewController) == nextVC  {
+            self.navigationController?.popToViewController(vc as! UIViewController, animated: false)
+                isRegisterVC = true
+                break;
+           }
+        }
+
+        //如果沒有就直接push
+        if !isRegisterVC{
+            navigationController?.pushViewController(nextVC, animated: false)
+        }
+    }
+    
+    //舊的畫面被叫出時無法傳值 待解決
+    
+    //pop 跳頁時 刪掉舊的畫面
+    func pop_deleteCurrentVC(_ CurrentVC:UIViewController, _ nextVC: UIViewController){
+        //目的ViewController是否已經生成過了
+        var isRegisterVC = false
+        var arrayVC = NSMutableArray.init(array: (self.navigationController?.viewControllers)!)
+
+        //如果生成過了就叫出來
+        for vc in arrayVC{
+           if (vc as! UIViewController) == nextVC  {
+            self.navigationController?.popToViewController(vc as! UIViewController, animated: false)
+                isRegisterVC = true
+                break;
+           }
+        }
+
+        //如果沒有就直接push
+        if !isRegisterVC{
+            navigationController?.pushViewController(nextVC, animated: false)
+        }
+        
+        
+        //刪除上一個畫面
+        arrayVC = NSMutableArray.init(array: (self.navigationController?.viewControllers)!)
+        for vc in arrayVC {
+            if (vc as! UIViewController) == CurrentVC  {
+                arrayVC.remove(vc)
+                break;
+            }
+        }
+        
+        self.navigationController?.viewControllers = arrayVC as! [UIViewController]
     }
 }
 ```

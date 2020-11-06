@@ -80,5 +80,4 @@ enum testEnum{
     case b
     case c
 }
-
 ```
